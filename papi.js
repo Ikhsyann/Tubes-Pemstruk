@@ -65,16 +65,15 @@ function halamanUtama(user) {
       user.tabungan += tambah_tabungan;
 
       try {
-
-        if (data_login_user !== -1 && !isNaN(tambah_tabungan) && tambah_tabungan < 0) {
-          user_sekarang[data_login_user].tabungan = user.tabungan;
-          fs.writeFileSync('data_login.json', JSON.stringify(user_sekarang, null, 2), 'utf-8');
-          console.log ('\nTerimakasih sudah menabung!');
-          console.log(`\nJumlah tabungan kamu sekarang: ${formatter.format(user.tabungan)}\n`);
-          kembali_halamanUtama(user);
-        }
-        else {
-          console.log ('\nUser tidak ditemukan\n');
+          if (data_login_user !== -1 && !isNaN(tambah_tabungan) && !(tambah_tabungan < 0)) {
+            user_sekarang[data_login_user].tabungan = user.tabungan;
+            fs.writeFileSync('data_login.json', JSON.stringify(user_sekarang, null, 2), 'utf-8');
+            console.log ('\nTerimakasih sudah menabung!');
+            console.log(`\nJumlah tabungan kamu sekarang: ${formatter.format(user.tabungan)}\n`);
+            kembali_halamanUtama(user);
+          }
+          else {
+            console.log ('\nUser tidak ditemukan\n');
         }
         
       } catch (err) {
@@ -94,7 +93,7 @@ function halamanUtama(user) {
         
         try {
 
-          if (data_login_user !== -1 && !isNaN(transfer_tabungan) && transfer_tabungan < 0) {
+          if (data_login_user !== -1 && !isNaN(transfer_tabungan) && !(transfer_tabungan < 0)) {
             user.tabungan -= transfer_tabungan;
             user_sekarang[data_login_user].tabungan = user.tabungan;
 
@@ -119,13 +118,13 @@ function halamanUtama(user) {
 
     case '4' :
       console.log('\n.:: Selamat datang di menu hapus tabungan ::.\n');
-      const kurangi_tabungan = parseInt(prompt('Masukan Jumlah yang ingin ditabung (cth 1xxx) : '));
+      const kurangi_tabungan = parseInt(prompt('Masukan Jumlah yang ingin ditarik (cth 1xxx) : '));
 
       user.tabungan -= kurangi_tabungan;
 
       try {
 
-        if (data_login_user !== -1 && !isNaN(kurangi_tabungan) && kurangi_tabungan < 0) {
+        if (data_login_user !== -1 && !isNaN(kurangi_tabungan) && !(kurangi_tabungan < 0)) {
           user_sekarang[data_login_user].tabungan = user.tabungan;
           fs.writeFileSync('data_login.json', JSON.stringify(user_sekarang, null, 2), 'utf-8');
           console.log ('\nTabungan sudah di tarik!');
